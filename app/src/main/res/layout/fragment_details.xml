@@ -105,6 +105,25 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="4dp"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/textview_pokemon_movecount_lable"
+                        android:layout_weight="0.5"
+                        android:text="@string/label_movecount"
+                        style="@style/Physique"/>
+
+                <TextView
+                        android:id="@+id/textview_pokemon_movecount"
+                        tools:text="111"
+                        android:layout_weight="1"
+                        style="@style/Physique"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

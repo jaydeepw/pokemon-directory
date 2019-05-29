@@ -31,7 +31,7 @@ class PokemonDaoTest {
 
     @Test
     fun testInsertedAndRetrievedUsersMatch() {
-        val pokemon1Expected = Pokemon(1, "My Title", 100)
+        val pokemon1Expected = Pokemon(1, "My Title", "url12")
         val pokemon2Expected = Pokemon()
         val users = mutableListOf(pokemon1Expected, pokemon2Expected)
         pokemonDao.deleteAll()
@@ -44,7 +44,7 @@ class PokemonDaoTest {
 
     @Test
     fun testInsertedAndRetrievedUsersCountMatch() {
-        val pokemon1Expected = Pokemon(1, "My Title", 100)
+        val pokemon1Expected = Pokemon(1, "My Title", "url1")
         val pokemon2Expected = Pokemon()
         val users = mutableListOf(pokemon1Expected, pokemon2Expected)
         pokemonDao.deleteAll()
@@ -56,14 +56,14 @@ class PokemonDaoTest {
 
     @Test
     fun testSingleRowDataIntegrity() {
-        val pokemon1Expected = Pokemon(21, "My Title", 100)
+        val pokemon1Expected = Pokemon(21, "My Title", "url1")
         pokemonDao.deleteAll()
         pokemonDao.insert(pokemon1Expected)
 
         val allUsers = pokemonDao.all
         val pokemon1Actual = allUsers[0]
         Assert.assertEquals(pokemon1Actual.id, pokemon1Expected.id)
-        Assert.assertEquals(pokemon1Actual.title, pokemon1Expected.title)
-        Assert.assertEquals(pokemon1Actual.userId, pokemon1Expected.userId)
+        Assert.assertEquals(pokemon1Actual.name, pokemon1Expected.name)
+        Assert.assertEquals(pokemon1Actual.url, pokemon1Expected.url)
     }
 }

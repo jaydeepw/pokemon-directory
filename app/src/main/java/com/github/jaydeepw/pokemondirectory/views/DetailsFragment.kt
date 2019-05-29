@@ -66,11 +66,29 @@ class DetailsFragment : BaseFragment(), DetailsContractInterface.View {
         view?.visibility = View.VISIBLE
         showName(pokemon)
         showAvatar(pokemon)
+        showPhysicalDetails(pokemon)
+        showMoveCount(pokemon)
+    }
+
+    private fun showMoveCount(pokemon: Pokemon?) {
+        val moveCountTextView = view?.findViewById<TextView>(R.id.textview_pokemon_movecount)
+        moveCountTextView?.text = Integer.toString(pokemon?.moves?.size!!)
     }
 
     private fun showName(pokemon: Pokemon?) {
         val nameTextView = view?.findViewById<TextView>(R.id.textview_pokemon_name)
         nameTextView?.text = pokemon?.name?.capitalize()
+    }
+
+    private fun showPhysicalDetails(pokemon: Pokemon?) {
+        val weightTextView = view?.findViewById<TextView>(R.id.textview_pokemon_weight)
+        weightTextView?.text = Integer.toString(pokemon?.weight!!)
+
+        val heightTextView = view?.findViewById<TextView>(R.id.textview_pokemon_height)
+        heightTextView?.text = Integer.toString(pokemon?.height!!)
+
+        val experienceTextView = view?.findViewById<TextView>(R.id.textview_pokemon_experience)
+        experienceTextView?.text = Integer.toString(pokemon?.base_experience!!)
     }
 
     private fun showAvatar(pokemon: Pokemon?) {
