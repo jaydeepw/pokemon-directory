@@ -2,6 +2,7 @@ package com.github.jaydeepw.pokemondirectory.models.dataclasses
 
 import android.util.Log
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.net.URI
 
@@ -9,6 +10,9 @@ import java.net.URI
 data class Pokemon(@PrimaryKey(autoGenerate = true) val id: Int = 0,
                    val name: String = "",
                    val url: String = "") {
+
+    @Ignore
+    val height: Int = 0
 
     fun getPokemonId() : Int {
         val uri = URI(url)

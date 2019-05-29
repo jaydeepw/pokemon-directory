@@ -9,8 +9,11 @@ import com.github.jaydeepw.pokemondirectory.R
 import com.github.jaydeepw.pokemondirectory.db.dao.PokemonDao
 import com.github.jaydeepw.pokemondirectory.models.dataclasses.Page
 import com.github.jaydeepw.pokemondirectory.models.dataclasses.Pokemon
+import com.github.jaydeepw.pokemondirectory.models.datasource.DetailsSourceCallback
+import com.github.jaydeepw.pokemondirectory.models.datasource.DetailsViewCallback
 import com.github.jaydeepw.pokemondirectory.models.datasource.PokemonsCallback
 import com.github.jaydeepw.pokemondirectory.models.datasource.PokemonsSourceCallback
+import com.github.jaydeepw.pokemondirectory.models.datasource.network.DetailsNetworkModel
 import com.github.jaydeepw.pokemondirectory.models.datasource.network.MainNetworkModel
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
@@ -22,6 +25,9 @@ class PokemonRepository internal constructor(application: Application) {
 
     @Inject
     lateinit var mainModel: MainNetworkModel
+
+    @Inject
+    lateinit var detailsModel: DetailsNetworkModel
 
     init {
         val db = Room.databaseBuilder(application,
@@ -93,5 +99,26 @@ class PokemonRepository internal constructor(application: Application) {
                 callback.onFailure(e.message ?: e.localizedMessage)
             }
         }
+    }
+
+    fun getDetails(id: Int, callback: DetailsViewCallback) {
+        detailsModel.getDetails(id, object : DetailsSourceCallback {
+            override fun onSuccess(pokemon: Pokemon) {
+                Log.d("PokemonRepository", "pokemon.height ${pokemon.height}")
+
+                callback.onSuccess(pokemon)
+                // notify the subscriber about this event.
+                // in our case, it will be the UI.
+                // EventBus.getDefault().post(page.results)
+            }
+
+            override fun onFailure(message: String) {
+                callback.onFailure(message)
+            }
+
+            override fun onNotSuccess(messageResId: Int) {
+                callback.onNotSuccess(messageResId)
+            }
+        })
     }
 }

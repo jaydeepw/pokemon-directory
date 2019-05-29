@@ -3,7 +3,7 @@ package com.github.jaydeepw.pokemondirectory.models.datasource
 import com.github.jaydeepw.pokemondirectory.models.dataclasses.Pokemon
 
 interface DetailsDataSource {
-    fun getData(callback: DetailsSourceCallback)
+    fun getDetails(id: Int, callback: DetailsSourceCallback)
 }
 
 interface DetailsViewCallback {

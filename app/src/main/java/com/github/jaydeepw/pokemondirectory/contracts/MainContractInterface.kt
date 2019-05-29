@@ -8,10 +8,7 @@ interface MainContractInterface {
 
     interface View: BaseView {
         fun showData(list: ArrayList<Pokemon>?)
-        fun showError(messageResId: Int)
         fun showDetails(pokemon: Pokemon?)
-        fun showProgress()
-        fun hideProgress()
     }
 
     interface Presenter {

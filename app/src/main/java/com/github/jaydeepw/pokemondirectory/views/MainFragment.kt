@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jaydeepw.pokemondirectory.Constants
@@ -21,15 +19,13 @@ import com.github.jaydeepw.pokemondirectory.di.PresenterModule
 import com.github.jaydeepw.pokemondirectory.models.dataclasses.Pokemon
 import com.github.jaydeepw.pokemondirectory.presenters.MainPresenter
 import com.github.jaydeepw.pokemondirectory.views.adapters.Adapter
-import com.google.android.material.snackbar.Snackbar
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
-class MainFragment : Fragment(), MainContractInterface.View {
+class MainFragment : BaseFragment(), MainContractInterface.View {
 
-    private var progressIndicator: ProgressBar? = null
     private var recycleListView: RecyclerView? = null
 
     @Inject
@@ -71,22 +67,6 @@ class MainFragment : Fragment(), MainContractInterface.View {
         // Access the RecyclerView Adapter and load the data into it
         val adapter = Adapter(list, context!!, presenter)
         recycleListView?.adapter = adapter
-    }
-
-    override fun showError(messageResId: Int) {
-        if (view != null) {
-            Snackbar.make(view!!, getString(messageResId), Snackbar.LENGTH_LONG)
-        }
-    }
-
-    override fun showProgress() {
-        progressIndicator?.visibility = View.VISIBLE
-    }
-
-    override fun hideProgress() {
-        if (progressIndicator?.isShown!!) {
-            progressIndicator?.visibility = View.GONE
-        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

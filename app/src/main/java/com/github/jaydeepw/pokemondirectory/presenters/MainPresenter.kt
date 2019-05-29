@@ -8,7 +8,7 @@ import com.github.jaydeepw.pokemondirectory.models.datasource.PokemonsCallback
 
 class MainPresenter(
     var view: MainContractInterface.View?,
-    var pokemonRepository: PokemonRepository
+    private var pokemonRepository: PokemonRepository
 ): BasePresenter, MainContractInterface.Presenter {
     override fun onItemClick(pokemon: Pokemon?) {
         view?.showDetails(pokemon)

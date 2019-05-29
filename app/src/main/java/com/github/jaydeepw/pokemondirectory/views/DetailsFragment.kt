@@ -5,22 +5,43 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.github.jaydeepw.pokemondirectory.Constants
 import com.github.jaydeepw.pokemondirectory.R
 import com.github.jaydeepw.pokemondirectory.contracts.DetailsContractInterface
+import com.github.jaydeepw.pokemondirectory.db.PokemonRepository
+import com.github.jaydeepw.pokemondirectory.di.DaggerFragmentComponent
+import com.github.jaydeepw.pokemondirectory.di.ModelsModule
+import com.github.jaydeepw.pokemondirectory.di.NetworkModule
+import com.github.jaydeepw.pokemondirectory.di.PresenterModule
 import com.github.jaydeepw.pokemondirectory.models.dataclasses.Pokemon
+import com.github.jaydeepw.pokemondirectory.presenters.DetailsPresenter
+import javax.inject.Inject
 
-class DetailsFragment : Fragment(), DetailsContractInterface.View  {
+class DetailsFragment : BaseFragment(), DetailsContractInterface.View {
 
     companion object {
         const val POKEMON_ID = "id_of_the_pokemon"
         val TAG = DetailsFragment::class.simpleName
     }
 
-    private var progressIndicator: ProgressBar? = null
     private var pokemonId: Int? = null
+
+    @Inject
+    lateinit var presenter: DetailsPresenter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val repository = PokemonRepository(activity?.application!!)
+        val daggerFragmentComp = DaggerFragmentComponent.builder()
+            .presenterModule(PresenterModule(this, repository))
+            .modelsModule(ModelsModule())
+            .networkModule(NetworkModule(Constants.Companion.BASE_URL))
+            .build()
+        daggerFragmentComp.inject(this)
+        daggerFragmentComp.inject(repository)
+        daggerFragmentComp.inject(repository.detailsModel)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         pokemonId = arguments?.getInt(POKEMON_ID)
@@ -31,10 +52,9 @@ class DetailsFragment : Fragment(), DetailsContractInterface.View  {
         super.onViewCreated(view, savedInstanceState)
         progressIndicator = view.findViewById(R.id.progress_circular)
         Log.d(TAG, "ready to get poke for id: $pokemonId")
-    }
-
-    override fun showError(messageResId: Int) {
-
+        if (pokemonId != null) {
+            presenter.onGetDetails(pokemonId!!)
+        }
     }
 
     override fun showDetails(pokemon: Pokemon?) {
@@ -43,10 +63,12 @@ class DetailsFragment : Fragment(), DetailsContractInterface.View  {
     }
 
     override fun showProgress() {
-
+        progressIndicator?.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-
+        if (progressIndicator?.isShown!!) {
+            progressIndicator?.visibility = View.GONE
+        }
     }
 }

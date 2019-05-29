@@ -1,6 +1,7 @@
 package com.github.jaydeepw.pokemondirectory.di
 
 import com.github.jaydeepw.pokemondirectory.models.datasource.mock.MainMockModel
+import com.github.jaydeepw.pokemondirectory.models.datasource.network.DetailsNetworkModel
 import com.github.jaydeepw.pokemondirectory.models.datasource.network.MainNetworkModel
 import dagger.Module
 import dagger.Provides
@@ -19,5 +20,11 @@ class ModelsModule {
     @Singleton
     internal fun providesMainMockModel(): MainMockModel {
         return MainMockModel()
+    }
+
+    @Provides
+    @Singleton
+    internal fun providesDetailsNetworkModel(): DetailsNetworkModel {
+        return DetailsNetworkModel()
     }
 }
