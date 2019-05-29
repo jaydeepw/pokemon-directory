@@ -114,8 +114,12 @@ class MainFragment : Fragment(), MainContractInterface.View {
     override fun showDetails(pokemon: Pokemon?) {
         Toast.makeText(activity, "Ready to show details " + pokemon?.name, Toast.LENGTH_SHORT).show()
         Log.d("MainFragment", "showing details")
+        val fragment = DetailsFragment()
+        val bundle = Bundle()
+        bundle.putInt(DetailsFragment.POKEMON_ID, pokemon?.getPokemonId()!!)
+        fragment.arguments = bundle
         val ft = fragmentManager?.beginTransaction()
-        ft?.replace(R.id.dynamic_fragment_frame_layout, DetailsFragment())
+        ft?.replace(R.id.dynamic_fragment_frame_layout, fragment)
         ft?.addToBackStack(null)
         ft?.commit()
     }
