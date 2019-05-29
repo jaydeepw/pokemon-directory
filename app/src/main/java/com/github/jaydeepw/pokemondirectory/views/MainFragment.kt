@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.jaydeepw.pokemondirectory.Constants
 import com.github.jaydeepw.pokemondirectory.R
 import com.github.jaydeepw.pokemondirectory.contracts.MainContractInterface
 import com.github.jaydeepw.pokemondirectory.db.PokemonRepository
@@ -39,7 +40,7 @@ class MainFragment : Fragment(), MainContractInterface.View {
         val daggerFragmentComp = DaggerFragmentComponent.builder()
                 .presenterModule(PresenterModule(this, repository))
                 .modelsModule(ModelsModule())
-                .networkModule(NetworkModule("https://jsonplaceholder.typicode.com/"))
+                .networkModule(NetworkModule(Constants.Companion.BASE_URL))
                 .build()
 
         daggerFragmentComp.inject(this)
