@@ -10,6 +10,9 @@ class MainPresenter(
     var view: MainContractInterface.View?,
     var pokemonRepository: PokemonRepository
 ): BasePresenter, MainContractInterface.Presenter {
+    override fun onItemClick(pokemon: Pokemon?) {
+        view?.showDetails(pokemon)
+    }
 
     override fun onGetData() {
 

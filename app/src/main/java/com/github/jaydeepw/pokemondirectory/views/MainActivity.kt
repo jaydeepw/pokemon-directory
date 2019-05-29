@@ -10,5 +10,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        val ft = supportFragmentManager?.beginTransaction()
+        ft?.add(R.id.dynamic_fragment_frame_layout, MainFragment(), "main")
+        ft?.commit()
     }
 }

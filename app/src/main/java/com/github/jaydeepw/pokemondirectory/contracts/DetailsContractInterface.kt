@@ -4,10 +4,9 @@ import com.github.jaydeepw.pokemondirectory.models.dataclasses.Pokemon
 import com.github.jaydeepw.pokemondirectory.models.datasource.MainDataSource
 import com.github.jaydeepw.pokemondirectory.views.BaseView
 
-interface MainContractInterface {
+interface DetailsContractInterface {
 
     interface View: BaseView {
-        fun showData(list: ArrayList<Pokemon>?)
         fun showError(messageResId: Int)
         fun showDetails(pokemon: Pokemon?)
         fun showProgress()
@@ -15,7 +14,7 @@ interface MainContractInterface {
     }
 
     interface Presenter {
-        fun onGetData()
+        fun onGetDetails()
         fun onItemClick(pokemon: Pokemon?)
     }
 

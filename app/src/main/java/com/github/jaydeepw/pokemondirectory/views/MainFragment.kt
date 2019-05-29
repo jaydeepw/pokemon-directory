@@ -1,10 +1,12 @@
 package com.github.jaydeepw.pokemondirectory.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -67,7 +69,7 @@ class MainFragment : Fragment(), MainContractInterface.View {
         recycleListView?.layoutManager = LinearLayoutManager(context)
 
         // Access the RecyclerView Adapter and load the data into it
-        val adapter = Adapter(list, context!!)
+        val adapter = Adapter(list, context!!, presenter)
         recycleListView?.adapter = adapter
     }
 
@@ -92,7 +94,7 @@ class MainFragment : Fragment(), MainContractInterface.View {
         // Toast.makeText(activity, "==> albums.size " + albums.size, Toast.LENGTH_SHORT).show()
         var adapter = recycleListView?.adapter as Adapter
         if (adapter == null) {
-            adapter = Adapter(list as ArrayList<Pokemon>, context!!)
+            adapter = Adapter(list as ArrayList<Pokemon>, context!!, presenter)
             recycleListView?.adapter = adapter
         } else {
             adapter.updateAll(list)
@@ -107,5 +109,14 @@ class MainFragment : Fragment(), MainContractInterface.View {
     override fun onStop() {
         super.onStop()
         EventBus.getDefault().unregister(this)
+    }
+
+    override fun showDetails(pokemon: Pokemon?) {
+        Toast.makeText(activity, "Ready to show details " + pokemon?.name, Toast.LENGTH_SHORT).show()
+        Log.d("MainFragment", "showing details")
+        val ft = fragmentManager?.beginTransaction()
+        ft?.replace(R.id.dynamic_fragment_frame_layout, DetailsFragment())
+        ft?.addToBackStack(null)
+        ft?.commit()
     }
 }
