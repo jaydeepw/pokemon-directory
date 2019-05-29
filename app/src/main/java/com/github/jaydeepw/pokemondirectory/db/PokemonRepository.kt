@@ -7,8 +7,10 @@ import androidx.room.Room
 import com.github.jaydeepw.pokemondirectory.Constants
 import com.github.jaydeepw.pokemondirectory.R
 import com.github.jaydeepw.pokemondirectory.db.dao.PokemonDao
+import com.github.jaydeepw.pokemondirectory.models.dataclasses.Page
 import com.github.jaydeepw.pokemondirectory.models.dataclasses.Pokemon
 import com.github.jaydeepw.pokemondirectory.models.datasource.PokemonsCallback
+import com.github.jaydeepw.pokemondirectory.models.datasource.PokemonsSourceCallback
 import com.github.jaydeepw.pokemondirectory.models.datasource.network.MainNetworkModel
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
@@ -35,14 +37,17 @@ class PokemonRepository internal constructor(application: Application) {
         RetrieveAllAsyncTask(pokemonDao, callback).execute()
 
         // update the DB
-        mainModel.getData(object : PokemonsCallback {
-            override fun onSuccess(list: MutableList<Pokemon>) {
-                Log.d("MainPresenter", "network.list.size ${list.size}")
-                insertAll(list)
+        mainModel.getData(object : PokemonsSourceCallback {
+
+            override fun onSuccess(page: Page) {
+                Log.d("MainPresenter", "network.list.size ${page.results?.size}")
+                insertAll(page.results!!)
+
+                // todo save page number here
 
                 // notify the subscriber about this event.
                 // in our case, it will be the UI.
-                EventBus.getDefault().post(list)
+                EventBus.getDefault().post(page.results)
             }
 
             override fun onFailure(message: String) {
@@ -75,12 +80,12 @@ class PokemonRepository internal constructor(application: Application) {
             return asyncTaskDao.all
         }
 
-        override fun onPostExecute(result: List<Pokemon>?) {
-            super.onPostExecute(result)
+        override fun onPostExecute(page: List<Pokemon>?) {
+            super.onPostExecute(page)
 
             try {
-                if (result != null) {
-                    callback.onSuccess(result as MutableList<Pokemon>)
+                if (page != null) {
+                    callback.onSuccess(page as MutableList<Pokemon>)
                 } else {
                     callback.onNotSuccess(R.string.msg_failure_get_lists_db)
                 }

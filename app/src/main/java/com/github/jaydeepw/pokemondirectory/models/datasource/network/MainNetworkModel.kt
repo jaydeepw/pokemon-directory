@@ -4,7 +4,7 @@ import android.util.Log
 import com.github.jaydeepw.pokemondirectory.Utils
 import com.github.jaydeepw.pokemondirectory.contracts.MainContractInterface
 import com.github.jaydeepw.pokemondirectory.models.dataclasses.Page
-import com.github.jaydeepw.pokemondirectory.models.datasource.PokemonsCallback
+import com.github.jaydeepw.pokemondirectory.models.datasource.PokemonsSourceCallback
 import com.github.jaydeepw.pokemondirectory.models.datasource.network.client.ApiInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +20,7 @@ class MainNetworkModel: MainContractInterface.Model {
     @Inject
     lateinit var apiClient: ApiInterface
 
-    override fun getData(callback: PokemonsCallback) {
+    override fun getData(callback: PokemonsSourceCallback) {
 
         val list = apiClient.getPokemons()
         list.enqueue(object : Callback<Page> {
@@ -34,7 +34,7 @@ class MainNetworkModel: MainContractInterface.Model {
 
                     Log.d(TAG, "Response received")
 
-                    // callback.onSuccess(body)
+                    callback.onSuccess(body)
                 } else {
                     callback.onNotSuccess(Utils.Companion.parseNetworkCode(response.code()))
                 }
