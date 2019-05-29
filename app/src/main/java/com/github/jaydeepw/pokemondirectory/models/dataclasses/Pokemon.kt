@@ -13,6 +13,14 @@ data class Pokemon(@PrimaryKey(autoGenerate = true) val id: Int = 0,
 
     @Ignore
     val height: Int = 0
+    @Ignore
+    val weight: Int = 0
+    @Ignore
+    val base_experience: Int = 0
+    @Ignore
+    val moves: List<Move>? = null
+    @Ignore
+    val sprites: Avatars? = null
 
     fun getPokemonId() : Int {
         val uri = URI(url)

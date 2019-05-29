@@ -1,11 +1,9 @@
 package com.github.jaydeepw.pokemondirectory.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jaydeepw.pokemondirectory.Constants
@@ -92,8 +90,6 @@ class MainFragment : BaseFragment(), MainContractInterface.View {
     }
 
     override fun showDetails(pokemon: Pokemon?) {
-        Toast.makeText(activity, "Ready to show details " + pokemon?.name, Toast.LENGTH_SHORT).show()
-        Log.d("MainFragment", "showing details")
         val fragment = DetailsFragment()
         val bundle = Bundle()
         bundle.putInt(DetailsFragment.POKEMON_ID, pokemon?.getPokemonId()!!)

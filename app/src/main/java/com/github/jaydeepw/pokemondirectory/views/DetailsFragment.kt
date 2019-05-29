@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.github.jaydeepw.pokemondirectory.Constants
 import com.github.jaydeepw.pokemondirectory.R
 import com.github.jaydeepw.pokemondirectory.contracts.DetailsContractInterface
@@ -54,12 +56,26 @@ class DetailsFragment : BaseFragment(), DetailsContractInterface.View {
         Log.d(TAG, "ready to get poke for id: $pokemonId")
         if (pokemonId != null) {
             presenter.onGetDetails(pokemonId!!)
+        } else {
+            Log.wtf(TAG, "what! Pokemon id should not be null here")
         }
     }
 
     override fun showDetails(pokemon: Pokemon?) {
-        var nameTextView = view?.findViewById<TextView>(R.id.textview_pokemon_name)
-        nameTextView?.text = pokemon?.name
+        val view = view?.findViewById<View>(R.id.data_holder1)
+        view?.visibility = View.VISIBLE
+        showName(pokemon)
+        showAvatar(pokemon)
+    }
+
+    private fun showName(pokemon: Pokemon?) {
+        val nameTextView = view?.findViewById<TextView>(R.id.textview_pokemon_name)
+        nameTextView?.text = pokemon?.name?.capitalize()
+    }
+
+    private fun showAvatar(pokemon: Pokemon?) {
+        val imageView = view?.findViewById<ImageView>(R.id.textview_pokemon_image)
+        Glide.with(this).load(pokemon?.sprites?.front_default).into(imageView!!)
     }
 
     override fun showProgress() {

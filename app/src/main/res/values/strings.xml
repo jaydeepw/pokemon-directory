@@ -15,4 +15,7 @@
     <string name="error_server_504gateway_timeout">Sorry! Remote server timed out</string>
     <string name="error_server_contract_broken">Sorry! Server broke the contract</string>
     <string name="msg_error_general">Sorry! Something went wrong</string>
+    <string name="label_weight">Weight:</string>
+    <string name="label_height">Height:</string>
+    <string name="label_experience">Experience:</string>
 </resources>
