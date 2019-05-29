@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jaydeepw.pokemondirectory.Constants
 import com.github.jaydeepw.pokemondirectory.R
@@ -64,7 +64,7 @@ class MainFragment : Fragment(), MainContractInterface.View {
         // Because this is a list of albums, makes more sense in using a GridLayoutManger instead
         // of the Linear layout manager.
         // You can use GridLayoutManager if you want multiple columns. Enter the number of columns as a parameter.
-        recycleListView?.layoutManager = GridLayoutManager(activity, 2)
+        recycleListView?.layoutManager = LinearLayoutManager(context)
 
         // Access the RecyclerView Adapter and load the data into it
         val adapter = Adapter(list, context!!)

@@ -16,7 +16,7 @@ class Adapter(val items : ArrayList<Pokemon>?, val context: Context) : RecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val pokemon = items?.get(position)
-        holder.pokemonTitle?.text = pokemon?.name
+        holder.pokemonTitle?.text = pokemon?.name?.capitalize()
     }
 
     // Gets the number of animals in the list
