@@ -41,6 +41,7 @@ class MainNetworkModel: MainContractInterface.Model {
             }
 
             override fun onFailure(call: Call<Page>, t: Throwable) {
+                Log.e(TAG, t.message ?: t.localizedMessage)
                 callback.onFailure(t.message ?: t.localizedMessage)
             }
         })

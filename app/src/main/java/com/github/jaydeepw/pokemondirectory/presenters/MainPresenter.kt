@@ -24,11 +24,12 @@ class MainPresenter(
             }
 
             override fun onFailure(message: String) {
+                Log.e("MainPresenter", message)
                 view?.hideProgress()
+                view?.showError(message)
             }
 
             override fun onSuccess(list: MutableList<Pokemon>) {
-                Log.d("MainPresenter", "DB.list.size ${list.size}")
                 view?.hideProgress()
                 view?.showData(list as ArrayList<Pokemon>)
             }

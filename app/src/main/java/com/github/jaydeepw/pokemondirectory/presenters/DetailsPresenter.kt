@@ -23,6 +23,7 @@ class DetailsPresenter(
 
             override fun onFailure(message: String) {
                 view?.hideProgress()
+                view?.showError(message)
             }
 
             override fun onSuccess(pokemon: Pokemon) {

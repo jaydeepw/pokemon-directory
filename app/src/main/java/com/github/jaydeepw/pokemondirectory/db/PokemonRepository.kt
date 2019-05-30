@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 
-class PokemonRepository internal constructor(application: Application) {
+class PokemonRepository internal constructor(var application: Application) {
 
     private val pokemonDao: PokemonDao
 
@@ -57,6 +57,7 @@ class PokemonRepository internal constructor(application: Application) {
             }
 
             override fun onFailure(message: String) {
+                Log.e("PRepo", message)
                 callback.onFailure(message)
             }
 

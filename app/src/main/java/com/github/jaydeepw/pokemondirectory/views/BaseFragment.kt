@@ -15,6 +15,12 @@ open class BaseFragment : Fragment(), BaseView {
         }
     }
 
+    override fun showError(message: String) {
+        if (view != null) {
+            Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
+        }
+    }
+
     override fun showProgress() {
         progressIndicator?.visibility = View.VISIBLE
     }
