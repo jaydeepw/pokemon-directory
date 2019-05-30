@@ -11,8 +11,6 @@ class DetailsPresenter(
     var pokemonRepository: PokemonRepository
 ): BasePresenter, DetailsContractInterface.Presenter {
 
-
-
     override fun onGetDetails(id: Int) {
         view?.showProgress()
         pokemonRepository.getDetails(id, object : DetailsViewCallback {
