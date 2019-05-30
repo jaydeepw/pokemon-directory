@@ -12,6 +12,8 @@ A small piece of work to show off my Android development skills
 - Room Data Persistance library for data storage
 
 ## API used
-- (https://pokeapi.co)[https://pokeapi.co] for getting the data about the Pokemons
+- [pokeapi.co](https://pokeapi.co) for getting the data about the Pokemons
 
 ## `main` source directory structure
+<img src="https://raw.githubusercontent.com/jaydeepw/pokemon-directory/master/main-tree.png"
+     alt="Main source tree" />
