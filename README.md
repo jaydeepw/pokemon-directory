@@ -1,6 +1,9 @@
 # Pokemon Directory
 A small piece of work to show off my Android development skills
 
+## App demo
+<img src="app-demo.gif" width="200px" style="margin: 0 0 0 30px" alt="App Demo" />
+
 ## Technical skills used
 - Built with :heart: in `Kotlin`
 - Follows `Model View Presenter` architecture
